@@ -251,6 +251,10 @@ body {
   .controls {
     transform: translateX(-10%);
   }
+
+  .guide-portrait-only {
+    display: none;
+  }
 }
 
 @media (max-width: 420px) {

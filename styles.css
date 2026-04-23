@@ -1,11 +1,9 @@
 @font-face {
-  font-family: 'GT Eesti Pro Display';
-  src: url('fonts/gteestiprodisplay_regular.otf') format('opentype');
+  font-family: "GT Eesti Pro Display";
+  src: url("fonts/gteestiprodisplay_regular.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
 }
-
-
 
 :root {
   --page-bg: #ffffff;
@@ -15,11 +13,10 @@
   --guide-color: rgba(89, 154, 255, 0.62);
   --switch-off: #dfe7f0;
   --font-main: "GT Eesti Pro Display", sans-serif;
-  --safe-space: clamp(18px, 5vw, 22px);
-  --frame-left: 6.2%;
-  --frame-top: 5.8%;
-  --title-inset-x: 20px;
-  --title-inset-y: 17px;
+  --frame-left: 6.2vw;
+  --frame-top: 5.8vh;
+  --title-inset-x: 4px;
+  --title-inset-y: 8px;
 }
 
 *,
@@ -70,7 +67,6 @@ body {
   vector-effect: non-scaling-stroke;
 }
 
-
 .guide-line--solid {
   stroke-dasharray: none;
 }
@@ -88,19 +84,10 @@ body {
   position: relative;
 }
 
-
 .progress-layout__display {
   display: grid;
-  grid-template-rows: auto 1fr;
-  padding-top: calc(var(--frame-top) + var(--title-inset-y));
-  padding-left: calc(var(--frame-left) + var(--title-inset-x));
-  padding-right: calc(var(--frame-left) + var(--title-inset-x));
-  transition: opacity 180ms ease, visibility 180ms ease;
-}
-
-.progress-layout__controls {
-  display: grid;
   place-items: center;
+  transition: opacity 180ms ease, visibility 180ms ease;
 }
 
 .progress-layout__display.is-hidden {
@@ -108,18 +95,22 @@ body {
   visibility: hidden;
 }
 
+.progress-layout__title,
+.progress-ring {
+  grid-area: 1 / 1;
+}
+
 .progress-layout__title {
-  position: static;
-  margin: 0;
+  margin: calc(var(--frame-top) + var(--title-inset-y)) 0 0 calc(var(--frame-left) + var(--title-inset-x));
+  justify-self: start;
+  align-self: start;
   font-size: clamp(17px, 3.4vw, 18px);
   line-height: 1;
   font-weight: 300;
-  justify-self: start;
-  align-self: start;
 }
 
 .progress-ring {
-  width: clamp(90px, 29vw, 102px);
+  width: clamp(120px, 29vw, 132px);
   aspect-ratio: 1;
   display: grid;
   place-items: center;
@@ -153,18 +144,23 @@ body {
   transition: stroke-dashoffset 220ms ease;
 }
 
+.progress-layout__controls {
+  display: grid;
+  place-items: center;
+}
+
 .controls {
-  position: relative;
   display: grid;
   gap: 14px;
   justify-items: start;
-  top: -10%;
+  transform: translateY(-30%);
 }
 
 .control-row {
   position: relative;
   display: grid;
   grid-template-columns: auto auto;
+  justify-items: center;
   align-items: center;
   column-gap: 16px;
   cursor: pointer;
@@ -253,15 +249,17 @@ body {
   }
 
   .controls {
-    left: -10%;
-    top: 0;
+    transform: translateX(-10%);
   }
-  
 }
 
 @media (max-width: 420px) {
   .controls {
     gap: 12px;
+  }
+
+  .progress-ring {
+    width: clamp(90px, 29vw, 102px);
   }
 
   .control-row {

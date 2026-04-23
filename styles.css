@@ -1,0 +1,256 @@
+@font-face {
+  font-family: 'GT Eesti Pro Display';
+  src: url('fonts/gteestiprodisplay_regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+
+:root {
+  --page-bg: #ffffff;
+  --text-main: #151515;
+  --track-color: #edf2f7;
+  --accent: #005cff;
+  --guide-color: rgba(89, 154, 255, 0.62);
+  --switch-off: #dfe7f0;
+  --font-main: "GT Eesti Pro Display", sans-serif;
+  --safe-space: clamp(18px, 5vw, 22px);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--text-main);
+  font-family: var(--font-main);
+  font-weight: 400;
+}
+
+.screen {
+  position: relative;
+  min-height: 100vh;
+  background: var(--page-bg);
+  overflow: hidden;
+}
+
+.screen__guides {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.screen__guides svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.guide-line {
+  fill: none;
+  stroke: var(--guide-color);
+  stroke-width: 1;
+  stroke-dasharray: 25 5;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+
+.guide-line--solid {
+  stroke-dasharray: none;
+}
+
+.progress-layout {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+
+.progress-layout__display,
+.progress-layout__controls {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.progress-layout__display {
+  transition: opacity 180ms ease, visibility 180ms ease;
+}
+
+.progress-layout__display.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.progress-layout__title {
+  position: absolute;
+  top: calc(var(--safe-space) + 13px);
+  left: calc(var(--safe-space) + 10px);
+  margin: 0;
+  font-size: clamp(17px, 3.4vw, 18px);
+  line-height: 1;
+  font-weight: 300;
+}
+
+.progress-ring {
+  width: clamp(90px, 29vw, 102px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+}
+
+.progress-ring.is-animated {
+  animation: spin 1.7s linear infinite;
+}
+
+.progress-ring__svg {
+  width: 100%;
+  height: 100%;
+}
+
+.progress-ring__track,
+.progress-ring__value {
+  fill: none;
+  stroke-width: 9;
+}
+
+.progress-ring__track {
+  stroke: var(--track-color);
+}
+
+.progress-ring__value {
+  stroke: var(--accent);
+  stroke-linecap: butt;
+  transform: rotate(-90deg);
+  transform-origin: 60px 60px;
+  transition: stroke-dashoffset 220ms ease;
+}
+
+.controls {
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+}
+
+.control-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  column-gap: 16px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.control-row--value {
+  cursor: default;
+}
+
+.control-row__text {
+  font-size: clamp(14px, 5vw, 16px);
+  line-height: 1;
+}
+
+.value-input {
+  width: 44px;
+  height: 26px;
+  padding: 2px 0 0;
+  border: 1px solid var(--text-main);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--text-main);
+  text-align: center;
+  font: inherit;
+  font-size: 14px;
+  line-height: 26px;
+  outline: none;
+  appearance: textfield;
+}
+
+.value-input::-webkit-outer-spin-button,
+.value-input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.switch-input {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.switch {
+  width: 44px;
+  height: 26px;
+  padding: 2px;
+  border-radius: 999px;
+  background: var(--switch-off);
+  transition: background-color 180ms ease;
+}
+
+.switch__thumb {
+  display: block;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 180ms ease;
+}
+
+.switch-input:checked + .switch {
+  background: var(--accent);
+}
+
+.switch-input:checked + .switch .switch__thumb {
+  transform: translateX(18px);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (orientation: landscape) {
+  .progress-layout {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+  }
+
+  .progress-layout__title {
+    left: calc(var(--safe-space) + 18px);
+  }
+}
+
+@media (max-width: 420px) {
+  .controls {
+    gap: 12px;
+  }
+
+  .control-row {
+    column-gap: 14px;
+  }
+
+  .control-row__text {
+    font-size: 17px;
+  }
+}

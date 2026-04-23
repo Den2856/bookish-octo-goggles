@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Progress Block</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  </head>
+  <body>
+    <main class="screen" data-progress-root>
+      <div class="screen__guides" aria-hidden="true">
+        
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+          <!-- внешняя рамка -->
+          <rect class="guide-line" x="6.2" y="5.8" width="87" height="92" />
+
+          <!-- центральная вертикаль сверху -->
+          <line class="guide-line" x1="50" y1="0" x2="50" y2="10" />
+
+          <!-- центральная вертикаль снизу -->
+          <line class="guide-line" x1="50" y1="91.5" x2="50" y2="100" />
+
+          <!-- центральная горизонталь -->
+          <line class="guide-line" x1="0" y1="50" x2="10" y2="50" />
+          <line class="guide-line" x1="90" y1="50" x2="100" y2="50" />
+
+        </svg>
+      </div>
+
+      <div class="progress-layout">
+        <section class="progress-layout__display" data-display>
+          <h1 class="progress-layout__title">Progress</h1>
+
+          <div class="progress-ring" data-ring>
+            <svg
+              class="progress-ring__svg"
+              viewBox="0 0 120 120"
+              role="img"
+              aria-label="Индикатор прогресса"
+            >
+              <circle
+                class="progress-ring__track"
+                cx="60"
+                cy="60"
+                r="46"
+              />
+              <circle
+                class="progress-ring__value"
+                cx="60"
+                cy="60"
+                r="46"
+                data-progress-circle
+              >
+            </svg>
+          </div>
+        </section>
+
+        <section class="progress-layout__controls">
+          <div class="controls">
+            <label class="control-row control-row--value">
+              <input
+                class="value-input"
+                type="number"
+                min="0"
+                max="100"
+                step="1"
+                value="60"
+                inputmode="numeric"
+                data-value-input
+              />
+              <span class="control-row__text">Value</span>
+            </label>
+
+            <label class="control-row">
+              <input
+                class="switch-input"
+                type="checkbox"
+                checked
+                data-animate-input
+              />
+              <span class="switch" aria-hidden="true">
+                <span class="switch__thumb"></span>
+              </span>
+              <span class="control-row__text">Animate</span>
+            </label>
+
+            <label class="control-row">
+              <input class="switch-input" type="checkbox" data-hide-input />
+              <span class="switch" aria-hidden="true">
+                <span class="switch__thumb"></span>
+              </span>
+              <span class="control-row__text">Hide</span>
+            </label>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

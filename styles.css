@@ -16,6 +16,10 @@
   --switch-off: #dfe7f0;
   --font-main: "GT Eesti Pro Display", sans-serif;
   --safe-space: clamp(18px, 5vw, 22px);
+  --frame-left: 6.2%;
+  --frame-top: 5.8%;
+  --title-inset-x: 20px;
+  --title-inset-y: 17px;
 }
 
 *,
@@ -82,12 +86,21 @@ body {
 .progress-layout__display,
 .progress-layout__controls {
   position: relative;
-  display: grid;
-  place-items: center;
 }
 
+
 .progress-layout__display {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  padding-top: calc(var(--frame-top) + var(--title-inset-y));
+  padding-left: calc(var(--frame-left) + var(--title-inset-x));
+  padding-right: calc(var(--frame-left) + var(--title-inset-x));
   transition: opacity 180ms ease, visibility 180ms ease;
+}
+
+.progress-layout__controls {
+  display: grid;
+  place-items: center;
 }
 
 .progress-layout__display.is-hidden {
@@ -96,13 +109,13 @@ body {
 }
 
 .progress-layout__title {
-  position: absolute;
-  top: calc(var(--safe-space) + 13px);
-  left: calc(var(--safe-space) + 10px);
+  position: static;
   margin: 0;
   font-size: clamp(17px, 3.4vw, 18px);
   line-height: 1;
   font-weight: 300;
+  justify-self: start;
+  align-self: start;
 }
 
 .progress-ring {
@@ -110,6 +123,7 @@ body {
   aspect-ratio: 1;
   display: grid;
   place-items: center;
+  place-self: center;
 }
 
 .progress-ring.is-animated {
@@ -140,9 +154,11 @@ body {
 }
 
 .controls {
+  position: relative;
   display: grid;
   gap: 14px;
   justify-items: start;
+  top: -10%;
 }
 
 .control-row {
@@ -236,9 +252,11 @@ body {
     grid-template-rows: 1fr;
   }
 
-  .progress-layout__title {
-    left: calc(var(--safe-space) + 18px);
+  .controls {
+    left: -10%;
+    top: 0;
   }
+  
 }
 
 @media (max-width: 420px) {
